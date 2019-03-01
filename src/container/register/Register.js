@@ -15,6 +15,12 @@ class Register extends Component{
     this.login = this.login.bind(this)
   }
 
+  handleChange(key, val) {
+    this.setState({
+      [key]: val
+    })
+  }
+
   login() {
     //
     this.props.history.push('/login')
@@ -26,18 +32,19 @@ class Register extends Component{
         <Logo></Logo>
         <h2>Register</h2>
         <List>
-          <InputItem>Username</InputItem>
-          <InputItem>UFL Email</InputItem>
-          <InputItem>Password</InputItem>
-          <InputItem>Confirm Password</InputItem>
+          <InputItem placeholder="Username"></InputItem>
+          <InputItem type="password" placeholder="Password"></InputItem>
+          <InputItem type="password" placeholder="Confirm Password"></InputItem>
           <WhiteSpace />
-          <RadioItem check={this.state.type==='expert'}>I am an Expert!</RadioItem>
-          <RadioItem check={this.state.type==='user'}>I have questions!</RadioItem>
+          <RadioItem key={1} checked={this.state.type==='expert'} onChange={()=>this.handleChange('type','expert')}>I am an expert!</RadioItem>
+          <RadioItem key={2} checked={this.state.type==='user'} onChange={()=>this.handleChange('type', 'user')}>I want to consult!</RadioItem>
         </List>
+        <WhiteSpace />
+        <WhiteSpace />
         <WingBlank>
-          <Button type="primary" onClick={this.login}>Register</Button>
+          <Button type="primary" >Register</Button>
           <WhiteSpace></WhiteSpace>
-          <Button type="primary">Log in</Button>
+          <Button type="primary" onClick={this.login}>Log in</Button>
         </WingBlank>
       </div>    
     )
