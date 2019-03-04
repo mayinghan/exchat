@@ -9,6 +9,7 @@ import './config'
 import reducers from './reducers'
 import Login from './container/login/Login'
 import Register from './container/register/Register'
+import Expertinfo from './container/info/Expertinfo'
 import AuthRoute from './component/authroute/AuthRoute'
 import * as serviceWorker from './serviceWorker';
 
@@ -26,13 +27,14 @@ ReactDOM.render(
     <BrowserRouter>
       <div>
         <AuthRoute></AuthRoute>
-        {/*<Route path='/boss' component={Boss}></Route>*/}
-        <Route path='/login' component={Login}></Route>
-        <Route path='/register' component={Register}></Route>
+        <Switch>
+          <Route path='/expertinfo' component={Expertinfo}></Route>
+          <Route path='/login' component={Login}></Route>
+          <Route path='/register' component={Register}></Route>
+        </Switch>
       </div>
     </BrowserRouter>
   </Provider>
-
   ), document.getElementById('root')
 )
 

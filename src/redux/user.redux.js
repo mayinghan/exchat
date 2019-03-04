@@ -15,8 +15,9 @@ const initState={
 // reducer
 export function user(state=initState, action){
 	switch(action.type){
-		case REGISTER_SUCCESS:
+		case REGISTER_SUCCESS:{
 			return {...state, msg:'',redirectTo:getRedirectPath(action.payload),isAuth:true,...action.payload}
+		}
 		case LOGIN_SUCESS:
 			return {...state, msg:'',redirectTo:getRedirectPath(action.payload),isAuth:true,...action.payload}
 		case LOAD_DATA:
@@ -28,7 +29,9 @@ export function user(state=initState, action){
 	}
 } 
 
+//action creater:
 function registerSuccess(data){
+	console.log('register successfully')
 	return { type:REGISTER_SUCCESS, payload:data}
 }
 function loginSuccess(data){
@@ -39,34 +42,33 @@ function errorMsg(msg){
 }
 
 export function loadData(userinfo){
-	console.log(loadData)
 	return { type:LOAD_DATA, payload:userinfo}
 }
+
 export function login({user,pwd}){
 	if (!user||!pwd) {
-		return errorMsg('用户密码必须输入')
+		return errorMsg('Missing Field(s)')
 	}
 	return dispatch=>{
 		axios.post('/user/login',{user,pwd})
 			.then(res=>{
 				if (res.status==200&&res.data.code===0) {
-					// dispatch(registerSuccess({user,pwd,type}))
+					console.log(res.data.data)
 					dispatch(loginSuccess(res.data.data))
 				}else{
 					dispatch(errorMsg(res.data.msg))
 				}
 			})		
 	}
-
-
 }
 
-export function regisger({user,pwd,repeatpwd,type}){
-	if (!user||!pwd||!type) {
-		return errorMsg('用户名密码必须输入')
+export function register({user,pwd,repeatpwd,type}){
+	if (!user||!pwd||!type||!repeatpwd) {
+		console.log(user, pwd, repeatpwd, type)
+		return errorMsg('You are missing some fields!')
 	}
 	if (pwd!==repeatpwd) {
-		return errorMsg('密码和确认密码不同')
+		return errorMsg('Two passwords are not the same!')
 	}
 	return dispatch=>{
 		axios.post('/user/register',{user,pwd,type})
