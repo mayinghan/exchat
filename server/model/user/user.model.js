@@ -69,9 +69,12 @@ var UserSchema = new Schema({
   avatar: {
     type: String
   },
-  descript: {
+  description: {
     type: String
-  }  
+  },
+  position: {
+    type: String
+  }
 });
 
 //UserSchema.plugin(gridStore);

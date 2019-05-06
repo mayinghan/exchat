@@ -6,31 +6,6 @@ const _filter = {'pwd': 0, '__v': 0}
 
 module.exports = function(router) {
 
-  router.get('/info', (req, res) => {
-    //user no cookie
-    const {userid} = req.cookies;
-    if(!userid) {
-      //code == 1: not authorized, no cookie
-      return res.json({code:1})
-    }
-    User.findOne({_id: userid}, _filter, function(e, d) {
-      if(e) {
-        console.log(e)
-        return res.json({
-          code:1,
-          msg: 'Internal server error!'
-        })
-      }
-      if(d) {
-        return res.json({
-          code: 0,
-          data: d
-        })
-      }
-    })
-  })
-
-
   router.post('/register', (req, res) => {
     let user = new User()
     user.user = req.body.user
@@ -118,6 +93,23 @@ module.exports = function(router) {
     })
   })
 
+
+  router.post('/update', function(req, res) {
+    const userid = req.cookies.userid
+    if(!userid) {
+      return res.json({code:1})
+    }
+
+    const body = req.body
+    console.log(body)
+    User.findByIdAndUpdate(userid, body, (err, doc) => {
+      const data = Object.assign({}, {
+        user: doc.user,
+        type: doc.type
+      }, body)
+      return res.json({code:0, data})
+    })
+  })
   
 
   return router
