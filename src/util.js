@@ -8,5 +8,8 @@ export function getRedirectPath({type, avatar}){
   if(type === 'expert' && !avatar) {
     url += 'info'
   }
+  if(type === 'user' && !avatar) {
+    url += 'info'
+  }
 	return url
 }

@@ -1,15 +1,20 @@
 import React, { Component } from 'react'
-import { NavBar, InputItem, TextareaItem, Button, List } from 'antd-mobile' 
+import { NavBar, InputItem, TextareaItem, Button, Picker, List, WhiteSpace } from 'antd-mobile' 
 import  AvatarSelector from '../../component/avatorSelector/AvatarSelector'
 import { connect } from 'react-redux'
 import { update } from '../../redux/user.redux'
 import { Redirect } from 'react-router-dom'
 
+const carType = ['Hatchback', 'Sedan', 'SUV', 'Convertible', 'Coupe']
+const expectedPrice = ['5000-10000', '10000-15000', '15000-20000', '20000-25000', '25000-30000', '30000+']
+
+
 @connect(
   state=>state.user,
   {update}
 )
-class Expertinfo extends Component{
+
+class Userinfo extends Component{
   constructor(props) {
     super(props)
     this.state = {
@@ -40,16 +45,12 @@ class Expertinfo extends Component{
             })
           }}
         ></AvatarSelector>
-        <List renderHeader={()=>'Position'}>
-          <InputItem onChange={(v)=>this.onChange('position', v)}>
-            Position
-          </InputItem>
-        </List>
-        <List renderHeader={()=>'Description'}>
+        <List renderHeader={()=>'Vehicle Expectation'}>
           <TextareaItem 
-          name='Description'
+          title='Details'
           rows={3}
           autoHeight
+          placeholder='What kind of vehicle are you looking for? Please give us some keywords :)'
           onChange={(v)=>this.onChange('description', v)}>
           </TextareaItem>
         </List>
@@ -65,4 +66,4 @@ class Expertinfo extends Component{
   }
 }
 
-export default Expertinfo
+export default Userinfo

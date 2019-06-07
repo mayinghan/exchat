@@ -10,6 +10,7 @@ import reducers from './reducers'
 import Login from './container/login/Login'
 import Register from './container/register/Register'
 import Expertinfo from './container/info/Expertinfo'
+import Userinfo from './container/info/Userinfo'
 import AuthRoute from './component/authroute/AuthRoute'
 import * as serviceWorker from './serviceWorker';
 
@@ -29,6 +30,7 @@ ReactDOM.render(
         <AuthRoute></AuthRoute>
         <Switch>
           <Route path='/expertinfo' component={Expertinfo}></Route>
+          <Route path='/userinfo' component={Userinfo}></Route>
           <Route path='/login' component={Login}></Route>
           <Route path='/register' component={Register}></Route>
         </Switch>
