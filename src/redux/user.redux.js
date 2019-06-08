@@ -42,12 +42,12 @@ export function loadData(userinfo){
 
 export function login({user,pwd}){
 	if (!user||!pwd) {
-		return errorMsg('Missing Field(s)')
+		return errorMsg('You are missing some fields!')
 	}
 	return dispatch=>{
 		axios.post('/user/login',{user,pwd})
 			.then(res=>{
-				if (res.status==200&&res.data.code===0) {
+				if (res.status===200&&res.data.code===0) {
 					console.log(res.data.data)
 					dispatch(authSuccess(res.data.data))
 				}else{
@@ -68,7 +68,7 @@ export function register({user,pwd,repeatpwd,type}){
 	return dispatch=>{
 		axios.post('/user/register',{user,pwd,type})
 			.then(res=>{
-				if (res.status==200&&res.data.code===0) {
+				if (res.status===200&&res.data.code===0) {
 					dispatch(authSuccess({user,pwd,type}))
 				}else{
 					dispatch(errorMsg(res.data.msg))
@@ -80,11 +80,24 @@ export function register({user,pwd,repeatpwd,type}){
 
 //to update a user's info
 export function update(data) {
+	if(!data.avatar) {
+		return errorMsg('Please select your avatar!')
+	}
+
+	if(!data.description) return errorMsg('You are missing field \'Details\'');
+
+	if(data.role === 'expert') {
+		if(!data.position) {
+			return errorMsg('Please enter your position!');
+		}
+	}
 	return dispatch=> {
 		//update userinfo
-		axios.post('/user/update', data)
+		let {role, ...info} = data;
+		//console.log(data);
+		axios.post('/user/update', info)
 			.then(res=>{
-				if (res.status==200&&res.data.code===0) {
+				if (res.status===200&&res.data.code===0) {
 					console.log(res.data.data)
 					dispatch(authSuccess(res.data.data))
 				}else{

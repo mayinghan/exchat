@@ -19,9 +19,10 @@ const store = createStore(reducers, compose(
   window.devToolsExtension? window.devToolsExtension() : ()=>{}
 ))
 
-function Boss() {
-  return <h2>Boss</h2>
+function Dashboard() {
+  return <h2>dashboard</h2>
 }
+
 
 ReactDOM.render(
   (<Provider store={store}>
@@ -33,6 +34,7 @@ ReactDOM.render(
           <Route path='/userinfo' component={Userinfo}></Route>
           <Route path='/login' component={Login}></Route>
           <Route path='/register' component={Register}></Route>
+          <Route component={Dashboard}></Route>
         </Switch>
       </div>
     </BrowserRouter>

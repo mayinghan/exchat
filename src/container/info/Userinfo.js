@@ -20,7 +20,8 @@ class Userinfo extends Component{
     this.state = {
       avatar: '',
       position: '',
-      description: ''
+      description: '',
+      role: 'user'
     }
   }
 
@@ -34,10 +35,11 @@ class Userinfo extends Component{
     const path = this.props.location.pathname
     return (
       <div>
-        {(this.props.redirectTo != path) ? <Redirect to={this.props.redirectTo}></Redirect>:''}
+        {(this.props.redirectTo !== path) ? <Redirect to={this.props.redirectTo}></Redirect>:''}
         <NavBar
           mode="dark"
         >Finish your Info!</NavBar>
+        {this.props.msg?<p className='errmsg'>{this.props.msg}</p> : null}
         <AvatarSelector 
           selectAvatar={(img)=>{
             this.setState({

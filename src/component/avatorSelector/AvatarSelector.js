@@ -22,7 +22,7 @@ class AvatarSelector extends Component {
     const gridHeader = this.state.text
                           ? (<div>
                               <span>Avatar:   </span>
-                              <img src={this.state.icon} style={{width:20}}/>
+                              <img src={this.state.icon} alt="" style={{width:20}}/>
                           </div>)
                           : 'Please choose your avatar'
                         
