@@ -12,6 +12,7 @@ import Register from './container/register/Register'
 import Expertinfo from './container/info/Expertinfo'
 import Userinfo from './container/info/Userinfo'
 import AuthRoute from './component/authroute/AuthRoute'
+import Dashboard from './component/dashboard/Dashboard'
 import * as serviceWorker from './serviceWorker';
 
 const store = createStore(reducers, compose(
@@ -19,9 +20,6 @@ const store = createStore(reducers, compose(
   window.devToolsExtension? window.devToolsExtension() : ()=>{}
 ))
 
-function Dashboard() {
-  return <h2>dashboard</h2>
-}
 
 
 ReactDOM.render(
