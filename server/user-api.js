@@ -111,6 +111,15 @@ module.exports = function(router) {
     })
   })
   
+  router.get('/list', (req, res) => {
+    const {type} = req.query;
+    User.find({type}, (err, doc) => {
+      if(err) {
+        console.log(err);
+      }
+      return res.json(doc)
+    })
+  })
 
   return router
 }
