@@ -4,7 +4,7 @@ import { NavBar } from 'antd-mobile'
 import { Switch, Route } from 'react-router-dom'
 import Expert from '../../component/person/Expert.js'
 import User from '../../component/person/User.js'
-import Person from '../../component/person/Person.js'
+//import Person from '../../component/person/Person.js'
 import NavLink from './NavLink';
 /**
  * To-do: build the Expert, User, Msg, Person component 
@@ -14,12 +14,17 @@ function Msg() {
 	return <h2>Msg</h2>
 }
 
+function Person() {
+	return <h2>Me</h2>
+}
 @connect(
   state => state
 )
 class Dashboard extends React.Component {
   render() {
 		const user = this.props.user
+		const {pathname} = this.props.location
+		//overall list
     const navList = [
 			{
 				path:'/expert',
@@ -31,7 +36,7 @@ class Dashboard extends React.Component {
 			},
 			{
 				path:'/user',
-				text:'boss',
+				text:'expert',
 				icon:'job',
 				title:'expert list',
 				component:User,
@@ -39,23 +44,22 @@ class Dashboard extends React.Component {
 			},
 			{
 				path:'/msg',
-				text:'消息',
+				text:'message',
 				icon:'msg',
 				title:'message',
 				component:Msg
 			},
 			{
 				path:'/me',
-				text:'我',
+				text:'me',
 				icon:'user',
 				title:'me',
 				component:Person
 			}
 		]
-		const pathname = this.props.location
     return (
       <div>
-        <NavBar className='fixd-header' mode='dard'>{navList.find(v=>v.path===pathname).title}</NavBar>
+        <NavBar className='fixd-header' mode='dard'>{navList.find(v=>v.path==pathname).title}</NavBar>
 				<div style={{marginTop:45}}>
 						<Switch>
 							{navList.map(v=>(

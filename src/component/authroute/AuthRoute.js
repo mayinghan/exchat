@@ -15,8 +15,9 @@ class AuthRoute extends Component {
   //get user info during componentDidMount
   componentDidMount() {
      //if the user already at login or register page, then nothing need to do
+     console.log('component mount here')
      const publicList = ['/login', '/register']
-     console.log(this.props.location.pathname)
+     //console.log(this.props.location.pathname)
      const pathname = this.props.location.pathname
      if(publicList.indexOf(pathname) > -1) {
        return null
