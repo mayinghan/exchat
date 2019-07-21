@@ -48,8 +48,6 @@ module.exports = function(router) {
           msg:'username / password error'
         })
       } else {
-        let user = doc.user
-        let type = doc.type
         console.log(doc)
         res.cookie('userid', doc._id)
         res.json({

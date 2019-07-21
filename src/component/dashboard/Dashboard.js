@@ -4,6 +4,7 @@ import { NavBar } from 'antd-mobile'
 import { Switch, Route } from 'react-router-dom'
 import Expert from '../../component/person/Expert.js'
 import User from '../../component/person/User.js'
+import UserCenter from '../../component/person/UserCenter.js'
 //import Person from '../../component/person/Person.js'
 import NavLink from './NavLink';
 /**
@@ -54,7 +55,7 @@ class Dashboard extends React.Component {
 				text:'me',
 				icon:'user',
 				title:'me',
-				component:Person
+				component:UserCenter
 			}
 		];
 
