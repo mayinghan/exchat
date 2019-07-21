@@ -1,11 +1,31 @@
 import React from 'react';
 import {connect} from 'react-redux'
-import {Result, List, WhiteSpace} from 'antd-mobile'
+import {Result, List, WhiteSpace, Button, Modal, WingBlank} from 'antd-mobile'
+import browserCookie from 'browser-cookies'
+import {Redirect} from 'react-router-dom'
 
 @connect(
   state => state.user
 )
 class UserCenter extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+    this.logout = this.logout.bind(this);
+  }
+
+  logout() {
+    const alert = Modal.alert;
+    console.log('clicked')
+    alert('logout', 'Are you sure you want to log out?', [
+      { text: 'Cancel', onPress: () =>{} },
+      { text: 'Yes', onPress: () => {
+        browserCookie.erase('userid');
+        window.location.href = window.location.href
+      } }
+    ]);
+  }
+
   render() {
     const props = this.props;
     const Item = List.Item;
@@ -14,7 +34,7 @@ class UserCenter extends React.Component {
     return props.user ? (
       <div>
         <Result
-          img={<img src = {require(`../img/${this.props.avatar}.png`)} style={{width:50}}></img>}
+          img={<img src = {require(`../img/${this.props.avatar}.png`)} style={{width:50}} alt=''></img>}
           title={this.props.user}
         >
         </Result>
@@ -25,11 +45,11 @@ class UserCenter extends React.Component {
           </Item>
         </List>
         <WhiteSpace></WhiteSpace>
-        <List>
-          <Item>Log out!</Item>
-        </List>
+        <WingBlank>
+          <Button type="warning" onClick={this.logout}>Log out!</Button>
+        </WingBlank>
       </div>
-    ) : null;
+    ) : (<Redirect to={props.redirectTo} />);
   }
 }
 

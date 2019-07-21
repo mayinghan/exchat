@@ -19,6 +19,7 @@
     "bcrypt-nodejs": "0.0.3",
     "bfj": "6.1.1",
     "body-parser": "^1.18.3",
+    "browser-cookies": "^1.2.0",
     "case-sensitive-paths-webpack-plugin": "2.2.0",
     "cookie-parser": "^1.4.4",
     "css-loader": "1.0.0",
