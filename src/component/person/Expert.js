@@ -14,15 +14,21 @@ class Expert extends React.Component {
     this.state = {
       data: []
     }
+    this._isMounted = false;
   }
 
   componentDidMount() {
+    this._isMounted = true;
     axios.get('/user/list?type=expert')
       .then(res => {
-        if(res.data.code === 0) {
+        if(res.data.code === 0 && this._isMounted) {
           this.setState({ data: res.data.data });
         }
       })
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   render() {

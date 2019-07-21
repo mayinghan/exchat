@@ -42,7 +42,7 @@ class Expertinfo extends Component{
             })
           }}
         ></AvatarSelector>
-        <List renderHeader={()=>'Position'}>
+        <List renderHeader={()=>'Expertise'}>
           <InputItem onChange={(v)=>this.onChange('position', v)}>
             Position
           </InputItem>

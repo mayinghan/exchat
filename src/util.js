@@ -4,7 +4,7 @@ export function getRedirectPath({type, avatar}){
 	// user.type /boss /genius
   // user.avatar /bossinfo /geniusinfo 
   
-  var url = (type==='expert')?'/expert': '/user'
+  var url = (type==='expert')?'/user': '/expert'
   if(type === 'expert' && !avatar) {
     url += 'info'
   }
