@@ -53,7 +53,7 @@ export function login({user,pwd}){
 				}else{
 					dispatch(errorMsg(res.data.msg))
 				}
-			})		
+			});
 	}
 }
 
