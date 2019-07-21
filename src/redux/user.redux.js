@@ -14,6 +14,8 @@ const initState={
 export function user(state=initState, action){
 	switch(action.type){
 		case AUTH_SUCCESS:{
+			console.log('AUTH_SUCESS');
+			console.log(action.payload);
 			return {...state, msg:'',redirectTo:getRedirectPath(action.payload),...action.payload}
 		}
 		case LOAD_DATA:
@@ -28,7 +30,8 @@ export function user(state=initState, action){
 //action creator
 function authSuccess(obj) {
 	//mask the password to the redux data flow
-	const {pwd, ...data} = obj
+	const {pwd, ...data} = obj;
+	console.log(data);
 	return { type: AUTH_SUCCESS, payload: data }
 }
 
@@ -48,7 +51,6 @@ export function login({user,pwd}){
 		axios.post('/user/login',{user,pwd})
 			.then(res=>{
 				if (res.status===200&&res.data.code===0) {
-					console.log(res.data.data)
 					dispatch(authSuccess(res.data.data))
 				}else{
 					dispatch(errorMsg(res.data.msg))

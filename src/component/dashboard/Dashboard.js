@@ -28,19 +28,19 @@ class Dashboard extends React.Component {
     const navList = [
 			{
 				path:'/expert',
-				text:'user',
+				text:'expert',
 				icon:'boss',
-				title:'user list',
+				title:'Expert List',
 				component:Expert,
-				hide:user.type==='user'
+				hide:user.type==='expert'
 			},
 			{
 				path:'/user',
-				text:'expert',
+				text:'user',
 				icon:'job',
-				title:'expert list',
+				title:'Customer List',
 				component:User,
-				hide:user.type=='expert'
+				hide:user.type==='user'
 			},
 			{
 				path:'/msg',
@@ -56,10 +56,12 @@ class Dashboard extends React.Component {
 				title:'me',
 				component:Person
 			}
-		]
+		];
+
+		const page = navList.find(v => (v.path === pathname));
     return (
       <div>
-        <NavBar className='fixd-header' mode='dard'>{navList.find(v=>v.path==pathname).title}</NavBar>
+        <NavBar className='fixd-header' mode='dard'>{page ? page.title : null}</NavBar>
 				<div style={{marginTop:45}}>
 						<Switch>
 							{navList.map(v=>(

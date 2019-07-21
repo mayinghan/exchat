@@ -55,10 +55,7 @@ module.exports = function(router) {
         res.json({
           code:0,
           msg:'login success!',
-          data: {
-            user,
-            type
-          }
+          data: doc
         })
       }
     })
