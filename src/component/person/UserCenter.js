@@ -1,11 +1,31 @@
 import React from 'react';
 import {connect} from 'react-redux'
-import {Result, List, WhiteSpace} from 'antd-mobile'
+import {Result, List, WhiteSpace, Modal} from 'antd-mobile'
+import browserCookie from 'browser-cookies'
+//import {logoutSubmit} from '../../redux/user.redux'
+import {Redirect} from 'react-router-dom'
 
 @connect(
   state => state.user
 )
 class UserCenter extends React.Component {
+  constructor(props){
+		super(props)
+		this.logout = this.logout.bind(this)
+  }
+  
+  logout() {
+    const alert = Modal.alert;
+    console.log('clicked')
+    alert('logout', 'Are you sure you want to log out?', [
+      { text: 'Cancel', onPress: () =>{} },
+      { text: 'Yes', onPress: () => {
+        browserCookie.erase('userid');
+        window.location.href = window.location.href
+      } }
+    ]);
+  }
+  
   render() {
     const props = this.props;
     const Item = List.Item;
@@ -26,7 +46,7 @@ class UserCenter extends React.Component {
         </List>
         <WhiteSpace></WhiteSpace>
         <List>
-          <Item>Log out!</Item>
+          <Item onClick={this.logout}>Log out!</Item>
         </List>
       </div>
     ) : null;

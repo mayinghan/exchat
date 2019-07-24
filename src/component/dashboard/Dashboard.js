@@ -1,4 +1,5 @@
 import React from 'react'
+import { Fragment } from 'react'
 import { connect } from 'react-redux'
 import { NavBar } from 'antd-mobile'
 import { Switch, Route } from 'react-router-dom'
@@ -19,62 +20,66 @@ function Person() {
 	return <h2>Me</h2>
 }
 @connect(
-  state => state
+	state => state
 )
 class Dashboard extends React.Component {
-  render() {
+	render() {
 		const user = this.props.user
-		const {pathname} = this.props.location
+		const { pathname } = this.props.location
 		//overall list
-    const navList = [
+		const navList = [
 			{
-				path:'/expert',
-				text:'expert',
-				icon:'boss',
-				title:'Expert List',
-				component:Expert,
-				hide:user.type==='expert'
+				path: '/expert',
+				text: 'expert',
+				icon: 'boss',
+				title: 'Expert List',
+				component: Expert,
+				hide: user.type === 'expert'
 			},
 			{
-				path:'/user',
-				text:'user',
-				icon:'job',
-				title:'Customer List',
-				component:User,
-				hide:user.type==='user'
+				path: '/user',
+				text: 'user',
+				icon: 'job',
+				title: 'Customer List',
+				component: User,
+				hide: user.type === 'user'
 			},
 			{
-				path:'/msg',
-				text:'message',
-				icon:'msg',
-				title:'message',
-				component:Msg
+				path: '/msg',
+				text: 'message',
+				icon: 'msg',
+				title: 'message',
+				component: Msg
 			},
 			{
-				path:'/me',
-				text:'me',
-				icon:'user',
-				title:'me',
-				component:UserCenter
+				path: '/me',
+				text: 'me',
+				icon: 'user',
+				title: 'me',
+				component: UserCenter
 			}
 		];
 
 		const page = navList.find(v => (v.path === pathname));
-    return (
-      <div>
-        <NavBar className='fixd-header' mode='dard'>{page ? page.title : null}</NavBar>
-				<div style={{marginTop:20}}>
+		return (
+			<Fragment>
+				<div>
+					<NavBar className='fixd-header' mode='dard'>{page ? page.title : null}</NavBar>
+					<div style={{ marginTop: 20 }}>
 						<Switch>
-							{navList.map(v=>(
+							{navList.map(v => (
 								<Route key={v.path} path={v.path} component={v.component}></Route>
 							))}
 						</Switch>
+					</div>
 				</div>
+				<div style={{ position: 'absolute', left: 0, bottom: 0, right: 0 }}>
+					<NavLink data={navList}></NavLink>
+				</div>
+			</Fragment>
 
-				<NavLink data={navList}></NavLink>
-      </div>
-    )
-  }
+		)
+	}
 }
 
 export default Dashboard

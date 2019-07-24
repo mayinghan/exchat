@@ -15,7 +15,7 @@ class NavLink extends React.Component {
 
     const { pathname } = this.props.location
     return (
-      <div style={{ position: 'fixed', height: '100%', width: '100%', top: 0 }}>
+      <div>
         <TabBar>
           {list.map(item => (
             <TabBar.Item
