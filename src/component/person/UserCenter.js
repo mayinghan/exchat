@@ -11,7 +11,7 @@ class UserCenter extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
-    this.logout = this.logout.bind(this);
+    this.logout = this.logout.bind(this)
   }
 
   logout() {
@@ -29,27 +29,34 @@ class UserCenter extends React.Component {
   render() {
     const props = this.props;
     const Item = List.Item;
-    const Brief = List.Brief;
     // console.log(props);
-    return props.user ? (
-      <div>
-        <Result
-          img={<img src = {require(`../img/${this.props.avatar}.png`)} style={{width:50}} alt=''></img>}
-          title={this.props.user}
-        >
-        </Result>
+    // return props.user ? (
+    //   <div>
+    //     <Result
+    //       img={<img src = {require(`../img/${this.props.avatar}.png`)} style={{width:50}} alt=''></img>}
+    //       title={this.props.user}
+    //     >
+    //     </Result>
 
-        <List renderHeader = {() =>'Description'}>
-          <Item>
-            {props.description}
-          </Item>
-        </List>
-        <WhiteSpace></WhiteSpace>
-        <WingBlank>
-          <Button type="warning" onClick={this.logout}>Log out!</Button>
-        </WingBlank>
+    //     <List renderHeader = {() =>'Description'}>
+    //       <Item>
+    //         {props.description}
+    //       </Item>
+    //     </List>
+    //     <WhiteSpace></WhiteSpace>
+    //     <WingBlank>
+    //       {/* <Button type="warning" onClick={() => this.logout}>Log out!</Button> */}
+    //       <button onClick={this.logout}/>Log out!
+    //     </WingBlank>
+    //   </div>
+    // ) : (<Redirect to={props.redirectTo} />)
+    return (
+      <div>
+        
+        <button onClick={this.logout}>Log out!</button>
+     
       </div>
-    ) : (<Redirect to={props.redirectTo} />);
+    )
   }
 }
 

@@ -1,8 +1,7 @@
 import React from 'react'
-import { Fragment } from 'react';
 import { connect } from 'react-redux'
-import { NavBar } from 'antd-mobile'
-import { Switch, Route } from 'react-router-dom'
+import { NavBar } from 'antd-mobile';
+import { Switch, Route } from 'react-router-dom';
 import Expert from '../../component/person/Expert.js'
 import User from '../../component/person/User.js'
 import UserCenter from '../../component/person/UserCenter.js'
@@ -13,7 +12,7 @@ import NavLink from './NavLink';
  */
 
 function Msg() {
-	return <a>Msg</a>
+	return <h2>Msg</h2>
 }
 
 @connect(
@@ -64,13 +63,9 @@ class Dashboard extends React.Component {
 				<div style={{marginTop:20}}>
 						<Switch>
 							{navList.map(v=>(
-								// <Route key={v.path} path={v.path} component={v.component}></Route>
-								<Fragment key={v.title}>
-									<input type="button" value="msg"></input>
-								</Fragment>
-								
+								<Route key={v.path} path={v.path} component={v.component}></Route>
 							))}
-						</Switch>
+	</Switch>
 				</div>
 
 				<NavLink data={navList}></NavLink>
