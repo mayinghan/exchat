@@ -73,7 +73,7 @@ class Dashboard extends React.Component {
 						</Switch>
 					</div>
 				</div>
-				<div style={{ position: 'absolute', left: 0, bottom: 0, right: 0 }}>
+				<div style={{ position: 'fixed', left: 0, bottom: 0, right: 0 }}>
 					<NavLink data={navList}></NavLink>
 				</div>
 			</Fragment>

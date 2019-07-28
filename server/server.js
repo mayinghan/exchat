@@ -6,8 +6,13 @@ const Router = express.Router()
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const userRouter = require('./user-api')(Router)
-const User = require('./model/user/user.model')
+//work with express
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
 
+io.on('connection', (socket) => {
+  console.log('user loged in');
+});
 
 mongoose.connect(db, { useNewUrlParser: true })
 
