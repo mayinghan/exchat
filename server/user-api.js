@@ -108,6 +108,7 @@ module.exports = function(router) {
   
   router.get('/list', (req, res) => {
     const { type } = req.query;
+    console.log(type);
     User.find({type}, (err, doc) => {
       if(err) {
         console.log(err);

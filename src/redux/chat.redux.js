@@ -27,12 +27,12 @@ function userList(data) {
 } 
 
 //functions
-export function getList() {
+export function getList(type) {
   return dispatch => {
-    axios.get('/user/list?type=user')
+    axios.get(`/user/list?type=${type}`)
       .then(res => {
         if(res.data.code === 0) {
-          dispatch(userList(res.data))
+          dispatch(userList(res.data.data))
         }
       })
   }

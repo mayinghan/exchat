@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
-import { NavBar, InputItem, TextareaItem, Button, Picker, List, WhiteSpace } from 'antd-mobile' 
+import { NavBar,  TextareaItem, Button,  List, } from 'antd-mobile' 
 import  AvatarSelector from '../../component/avatorSelector/AvatarSelector'
 import { connect } from 'react-redux'
 import { update } from '../../redux/user.redux'
 import { Redirect } from 'react-router-dom'
 
-const carType = ['Hatchback', 'Sedan', 'SUV', 'Convertible', 'Coupe']
+/* const carType = ['Hatchback', 'Sedan', 'SUV', 'Convertible', 'Coupe']
 const expectedPrice = ['5000-10000', '10000-15000', '15000-20000', '20000-25000', '25000-30000', '30000+']
-
+ */
 
 @connect(
   state=>state.user,

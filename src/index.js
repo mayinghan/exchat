@@ -13,6 +13,7 @@ import Expertinfo from './container/info/Expertinfo'
 import Userinfo from './container/info/Userinfo'
 import AuthRoute from './component/authroute/AuthRoute'
 import Dashboard from './component/dashboard/Dashboard'
+import Chat from './component/chat/Chat'
 import * as serviceWorker from './serviceWorker';
 
 const store = createStore(reducers, compose(
@@ -32,6 +33,7 @@ ReactDOM.render(
           <Route path='/userinfo' component={Userinfo}></Route>
           <Route path='/login' component={Login}></Route>
           <Route path='/register' component={Register}></Route>
+          <Route path='/chat/:user' component={Chat}></Route>
           <Route component={Dashboard}></Route>
         </Switch>
       </div>

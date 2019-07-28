@@ -4,33 +4,48 @@
 
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Card, WhiteSpace,WingBlank} from 'antd-mobile'
+import { Card, WhiteSpace, WingBlank } from 'antd-mobile'
+import { withRouter } from 'react-router-dom'
 
-class UserCard extends React.Component{
+@withRouter
+class UserCard extends React.Component {
 	static propTypes = {
 		userList: PropTypes.array.isRequired
 	}
-	render(){
-		const Header = Card.Header
-		const Body = Card.Body
+
+	handleClick(v) {
+		console.log(v);
+		this.props.history.push(`/chat/${v.user}`);
+	}
+
+	render() {
+		const Header = Card.Header;
+		const Body = Card.Body;
+
+		//console.log(this.props.userList)
 		return (
 			<WingBlank>
-			<WhiteSpace></WhiteSpace>
-				{this.props.userList.map(v=>(
-					v.avatar?(<Card key={v._id}>
-						<Header
-							title={v.user}
-							thumb={require(`../img/${v.avatar}.png`)}
-							extra={<span>{v.title}</span>}
-						></Header>
-						<Body>
-							{v.type=='expert'? <div>Position:{v.position}</div> :null}
-							{v.description.split('\n').map(d=>(
-								<div key={d}>{d}</div>
-							))}
-						</Body>
-					</Card>):null
-
+				<WhiteSpace></WhiteSpace>
+				{this.props.userList.map(v => (
+					v.avatar ? (
+						<div key={v._id}>
+							<Card
+								key={v._id}
+								onClick={() => this.handleClick(v)}>
+								<Header
+									title={v.user}
+									thumb={require(`../img/${v.avatar}.png`)}
+									extra={<span>{v.title}</span>}
+								></Header>
+								<Body>
+									{v.type == 'expert' ? <div>Position:{v.position}</div> : null}
+									{v.description.split('\n').map(d => (
+										<div key={d}>{d}</div>
+									))}
+								</Body>
+							</Card>
+							<WhiteSpace></WhiteSpace>
+						</div>) : null
 				))}
 			</WingBlank>
 		)
