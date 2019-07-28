@@ -2,7 +2,7 @@ import React from 'react'
 import axios from 'axios'
 import { connect } from 'react-redux'
 import { getList } from '../../redux/chat.redux'
-import { WingBlank, Card } from 'antd-mobile';
+import { WingBlank, Card, WhiteSpace } from 'antd-mobile';
 
 @connect(
   state => state.chat,
@@ -38,7 +38,7 @@ class Expert extends React.Component {
       <WingBlank>
         {this.state.data.map(v => (
           //if the user have an avatar, then display
-          v.avatar ? (<Card key = {v._id}>
+          v.avatar ? (<div><Card key = {v._id}>
             <Header
               title = {v.user}
               thumb = {require(`../img/${v.avatar}.png`)}
@@ -49,7 +49,8 @@ class Expert extends React.Component {
                 <div key = {v}>{v}</div>
               ))}
             </Body>
-          </Card>) : null
+          </Card>
+          <WhiteSpace></WhiteSpace></div>) : null
         ))}
       </WingBlank>
     )
