@@ -8,7 +8,7 @@ import { Card, WhiteSpace, WingBlank } from 'antd-mobile'
 import { withRouter } from 'react-router-dom'
 
 @withRouter
-class UserCard extends React.Component {
+class InfoCard extends React.Component {
 	static propTypes = {
 		userList: PropTypes.array.isRequired
 	}
@@ -52,5 +52,5 @@ class UserCard extends React.Component {
 
 	}
 }
-export default UserCard
+export default InfoCard
 

@@ -13,3 +13,9 @@ export function getRedirectPath({type, avatar}){
   }
 	return url
 }
+
+
+//get chat id
+export function getChatId(userId, targetId) {
+  return [userId, targetId].sort().join('|');
+}

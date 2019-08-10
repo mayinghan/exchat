@@ -26,8 +26,10 @@ function Person() {
 )
 class Dashboard extends React.Component {
 	componentDidMount() {
-		this.props.getMsgList();
-    this.props.getMsg();
+		if(!this.props.chat.msg.length) {
+			this.props.getMsgList();
+    	this.props.getMsg();
+		}
 	}
 	render() {
 		const user = this.props.user

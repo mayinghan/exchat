@@ -1,8 +1,8 @@
 import React from 'react';
-import io from 'socket.io-client'
-import { List, InputItem, NavBar } from 'antd-mobile'
+import { List, InputItem, NavBar, Icon } from 'antd-mobile'
 import { connect } from 'react-redux'
 import { getMsgList, sendMsg, getMsg } from '../../redux/chat.redux'
+import { getChatId } from '../../util';
 
 @connect(
   state => state,
@@ -15,6 +15,21 @@ class Chat extends React.Component {
     //this.socket = null;
   }
 
+  componentWillMount() {
+    console.log('chat component gonna render')
+  }
+
+  componentDidMount() {
+    console.log('chat component render done');
+    
+    if(!this.props.chat.msg.length) {
+      this.props.getMsgList();
+      this.props.getMsg();
+    } else {
+      console.log('already updated list!');
+    }
+	}
+
   handleSubmit(){
     //console.log(this.props)
     const from = this.props.user._id;
@@ -25,24 +40,39 @@ class Chat extends React.Component {
   }
 
   render() {
-    const user = this.props.match.params.user;
+    const userid = this.props.match.params.user;
     const Item = List.Item;
+    const users = this.props.chat.users;
+    if(!users[userid]) {
+      return null;
+    }
+    console.log(this.props.user)
+    const chatId = getChatId(userid, this.props.user._id);
+    const chatMsg = this.props.chat.msg.filter(v=>v.chatId === chatId);
+    console.log(chatMsg);
     return (
       <div id='chat-page'>
-        <NavBar mode='dark'>
-          {this.props.match.params.user}
+        <NavBar 
+          mode='dark'
+          icon={<Icon type='left' />}
+          onLeftClick={() => {
+            //go back
+            this.props.history.goBack();
+          }}>
+          {users[userid].name}
         </NavBar>
 
-        {this.props.chat.msg.map(v => {
-          return v.from === user ? (
+        {chatMsg.map(v => {
+          const avatar = require(`../img/${users[v.from].avatar}.png`);
+          return v.from === userid ? (
             <List key={v._id}>
-              <Item>{v.content}</Item>
+              <Item thumb={avatar}>{v.content}</Item>
             </List>
           ) : (
             <List key={v._id}>
               <Item 
                 className='chat-me'
-                extra={'avatar'}>{v.content}</Item>
+                extra={<img src={avatar} />}>{v.content}</Item>
             </List>
           )
         })}
