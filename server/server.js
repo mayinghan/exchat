@@ -11,7 +11,11 @@ const server = require('http').Server(app);
 const io = require('socket.io')(server);
 
 io.on('connection', (socket) => {
-  console.log('user loged in');
+  //console.log('user loged in');
+  socket.on('sendmsg', function(data) {
+    console.log(data);
+    io.emit('getMsg', data);
+  })
 });
 
 mongoose.connect(db, { useNewUrlParser: true })
