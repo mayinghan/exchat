@@ -1,12 +1,12 @@
 import React from 'react'
 import axios from 'axios'
 import { connect } from 'react-redux'
-import { getList } from '../../redux/chat.redux'
+import { getList } from '../../redux/userList.redux'
 import { WingBlank, Card, WhiteSpace } from 'antd-mobile';
 import InfoCard from './InfoCard';
 
 @connect(
-  state => state.chat,
+  state => state.list,
   {getList}
 )
 class Expert extends React.Component {

@@ -17,8 +17,8 @@ import Chat from './component/chat/Chat'
 import * as serviceWorker from './serviceWorker';
 
 const store = createStore(reducers, compose(
-  applyMiddleware(thunk)
-  //window.devToolsExtension? window.devToolsExtension() : ()=>{}
+  applyMiddleware(thunk),
+  window.devToolsExtension? window.devToolsExtension() : ()=>{}
 ))
 
 

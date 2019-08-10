@@ -6,15 +6,23 @@ const Router = express.Router()
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const userRouter = require('./user-api')(Router)
+const chatRouter = require('./chat-api')(Router)
+const Chat = require('../server/model/user/chat.model')
 //work with express
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 
 io.on('connection', (socket) => {
   //console.log('user loged in');
-  socket.on('sendmsg', function(data) {
-    console.log(data);
-    io.emit('getMsg', data);
+  socket.on('sendMsg', function(data) {
+    const {from, to, msg} = data;
+    const chatId = [from, to].sort().join('|');
+
+    Chat.create({chatId, from, to, content: msg}, (err, doc) => {
+      console.log(doc);
+      io.emit('getMsg', doc);
+    })
+    //io.emit('getMsg', data);
   })
 });
 
@@ -31,6 +39,7 @@ app.use(bodyParser.json())
 // })
 
 app.use('/user', userRouter)
+  .use('/chat', chatRouter)
 
 //bound with io server+express instead of express app itself
 server.listen(port, function() {
