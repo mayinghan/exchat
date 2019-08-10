@@ -22,7 +22,7 @@ export function chat(state=initState, action) {
       return {...state, users: action.payload.users, msg: action.payload.msg, unreadNum: action.payload.msg.filter(v=>!v.read && v.to===action.payload.userId).length};
     case GET:
       const count = action.payload.msg.to === action.payload.userId ? 1 : 0;
-      return {...state, msg: [...state.msg, action.payload], unreadNum: state.unreadNum + count};
+      return {...state, msg: [...state.msg, action.payload.msg], unreadNum: state.unreadNum + count};
     case READ:
     default:
       return state;
@@ -34,7 +34,7 @@ function msgList(msg, users, userId) {
 }
 
 function msgGet(msg, userId) {
-  return {type: 'GET', payload: {msg, userId}};
+  return {type: 'GET', payload: {msg:msg, userId}};
 }
 
 export function getMsgList() {
@@ -53,7 +53,6 @@ export function getMsgList() {
 export function getMsg() {
   return (dispatch, getState) => {
     socket.on('getMsg', data => {
-      //console.log(data);
       const userId = getState().user._id;
       dispatch(msgGet(data, userId))
     })
