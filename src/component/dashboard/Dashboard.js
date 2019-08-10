@@ -6,6 +6,7 @@ import { Switch, Route } from 'react-router-dom'
 import Expert from '../../component/person/Expert.js'
 import User from '../../component/person/User.js'
 import UserCenter from '../../component/person/UserCenter.js'
+import { getMsgList, sendMsg, getMsg } from '../../redux/chat.redux'
 //import Person from '../../component/person/Person.js'
 import NavLink from './NavLink';
 /**
@@ -20,9 +21,14 @@ function Person() {
 	return <h2>Me</h2>
 }
 @connect(
-	state => state
+	state => state,
+	{getMsgList, sendMsg, getMsg}
 )
 class Dashboard extends React.Component {
+	componentDidMount() {
+		this.props.getMsgList();
+    this.props.getMsg();
+	}
 	render() {
 		const user = this.props.user
 		const { pathname } = this.props.location

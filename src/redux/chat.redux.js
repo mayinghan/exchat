@@ -18,9 +18,9 @@ const initState = {
 export function chat(state=initState, action) {
   switch(action.type) {
     case LIST:
-      return {...state, msg: action.payload, unread: action.payload.filter(v=>!v.read).length};
+      return {...state, msg: action.payload, unreadNum: action.payload.filter(v=>!v.read).length};
     case GET:
-      return {...state, msg: [...state.msg, action.payload], unread: state.unread + 1};
+      return {...state, msg: [...state.msg, action.payload], unread: state.unreadNum + 1};
     case READ:
     default:
       return state;
