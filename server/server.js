@@ -20,16 +20,16 @@ var port = process.env.PORT || 5000;
 
 app.use(cookieParser())
 app.use(bodyParser.json())
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-})
+// app.use(function(req, res, next) {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//   next();
+// })
 
 app.use('/user', userRouter)
 
-
-app.listen(port, function() {
+//bound with io server+express instead of express app itself
+server.listen(port, function() {
   console.log('Node app starts at port ', port)
 })
 
