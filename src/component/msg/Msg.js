@@ -26,22 +26,21 @@ class Msg extends React.Component {
     //group by chart id
     return (
       <div>
-        <List>
         {chatList.map(v => {
           console.log(v);
           const lastItem = this.getLast(v);
           const targetId = v[0].from === userId ? v[0].to : v[0].from;
           const targetInfo = this.props.chat.users[targetId];
-          console.log(targetInfo);
+
           return (
-            <Item key={lastItem._id}>
-              {lastItem.content}
-              <Brief>{targetInfo.name}</Brief>
-            </Item>
+            <List key={lastItem._id} >
+              <Item thumb={require(`../img/${targetInfo.avatar}.png`)}>
+                {targetInfo.name}
+                <Brief>{lastItem.content}</Brief>
+              </Item>
+            </List>   
           )
         })}
-        </List>
-        
       </div>
     )
   }
