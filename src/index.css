@@ -32,10 +32,18 @@ code {
 	margin-top: 0;
 }
 .stick-footer{
-	z-index:10;
+	z-index:999;
 	position: fixed;
 	bottom: 0;
-  width:100%;
+	width:100%;
+	
+}
+
+.fixd-header.am-navbar{
+	z-index: 999;
+	position: fixed;
+	top: 0;
+	width: 100%;
 }
 
 /* .am-tab-bar{

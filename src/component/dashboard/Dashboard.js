@@ -70,7 +70,7 @@ class Dashboard extends React.Component {
 			<Fragment>
 				<div>
 					<NavBar className='fixd-header' mode='dard'>{page ? page.title : null}</NavBar>
-					<div style={{ marginTop: 20, marginBottom: 50 }}>
+					<div style={{ marginTop: 40, marginBottom: 50 }}>
 						<Switch>
 							{navList.map(v => (
 								<Route key={v.path} path={v.path} component={v.component}></Route>

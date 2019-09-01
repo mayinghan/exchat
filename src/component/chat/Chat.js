@@ -53,6 +53,7 @@ class Chat extends React.Component {
     return (
       <div id='chat-page'>
         <NavBar 
+          className='fixd-header'
           mode='dark'
           icon={<Icon type='left' />}
           onLeftClick={() => {
@@ -61,21 +62,23 @@ class Chat extends React.Component {
           }}>
           {users[userid].name}
         </NavBar>
-
-        {chatMsg.map(v => {
-          const avatar = require(`../img/${users[v.from].avatar}.png`);
-          return v.from === userid ? (
-            <List key={v._id}>
-              <Item thumb={avatar}>{v.content}</Item>
-            </List>
-          ) : (
-            <List key={v._id}>
-              <Item 
-                className='chat-me'
-                extra={<img src={avatar} />}>{v.content}</Item>
-            </List>
-          )
-        })}
+        <div style={{ marginTop: 45, marginBottom: 50}}>
+          {chatMsg.map(v => {
+            const avatar = require(`../img/${users[v.from].avatar}.png`);
+            return v.from === userid ? (
+              <List key={v._id}>
+                <Item thumb={avatar}>{v.content}</Item>
+              </List>
+            ) : (
+              <List key={v._id}>
+                <Item 
+                  className='chat-me'
+                  extra={<img src={avatar} />}>{v.content}</Item>
+              </List>
+            )
+          })}
+        </div>
+        
         <div className='stick-footer'>
           <List>
             <InputItem

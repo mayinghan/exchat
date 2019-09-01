@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { List } from 'antd-mobile';
+import { List, Badge } from 'antd-mobile';
 
 
 @connect(
@@ -23,6 +23,7 @@ class Msg extends React.Component {
     const Item = List.Item;
     const Brief = Item.Brief;
     const userId = this.props.user._id;
+    const userInfo = this.props.chat.users;
     //group by chart id
     return (
       <div>
@@ -31,10 +32,17 @@ class Msg extends React.Component {
           const lastItem = this.getLast(v);
           const targetId = v[0].from === userId ? v[0].to : v[0].from;
           const targetInfo = this.props.chat.users[targetId];
+          if(!targetInfo) {
+            return null;
+          }
 
+          const unreadNum = v.filter(v => !v.read && v.to === userId).length;
+          console.log(unreadNum);
           return (
             <List key={lastItem._id} >
-              <Item thumb={require(`../img/${targetInfo.avatar}.png`)}>
+              <Item 
+                extra={<Badge text={unreadNum}></Badge>}
+                thumb={require(`../img/${targetInfo.avatar}.png`)}>
                 {targetInfo.name}
                 <Brief>{lastItem.content}</Brief>
               </Item>
