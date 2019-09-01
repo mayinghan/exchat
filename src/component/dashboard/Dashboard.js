@@ -7,15 +7,12 @@ import Expert from '../../component/person/Expert.js'
 import User from '../../component/person/User.js'
 import UserCenter from '../../component/person/UserCenter.js'
 import { getMsgList, sendMsg, getMsg } from '../../redux/chat.redux'
+import Msg from '../msg/Msg.js'
 //import Person from '../../component/person/Person.js'
 import NavLink from './NavLink';
 /**
  * To-do: build the Expert, User, Msg, Person component 
  */
-
-function Msg() {
-	return <h2>Msg</h2>
-}
 
 function Person() {
 	return <h2>Me</h2>
@@ -73,7 +70,7 @@ class Dashboard extends React.Component {
 			<Fragment>
 				<div>
 					<NavBar className='fixd-header' mode='dard'>{page ? page.title : null}</NavBar>
-					<div style={{ marginTop: 20 }}>
+					<div style={{ marginTop: 20, marginBottom: 50 }}>
 						<Switch>
 							{navList.map(v => (
 								<Route key={v.path} path={v.path} component={v.component}></Route>
