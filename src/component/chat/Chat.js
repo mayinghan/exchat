@@ -1,12 +1,12 @@
 import React from 'react';
 import { List, InputItem, NavBar, Icon } from 'antd-mobile'
 import { connect } from 'react-redux'
-import { getMsgList, sendMsg, getMsg } from '../../redux/chat.redux'
+import { getMsgList, sendMsg, getMsg, readMsg } from '../../redux/chat.redux'
 import { getChatId } from '../../util';
 
 @connect(
   state => state,
-  {getMsgList, sendMsg, getMsg}
+  {getMsgList, sendMsg, getMsg, readMsg}
 )
 class Chat extends React.Component {
   constructor(props) {
@@ -20,7 +20,7 @@ class Chat extends React.Component {
   }
 
   componentDidMount() {
-    console.log('chat component render done');
+    console.log(this.props)
     
     if(!this.props.chat.msg.length) {
       this.props.getMsgList();
@@ -28,7 +28,14 @@ class Chat extends React.Component {
     } else {
       console.log('already updated list!');
     }
+    
 	}
+
+  componentWillUnmount() {
+    //mark the target user's msg as read
+    const targetId = this.props.match.params.user;
+    this.props.readMsg(targetId);
+  }
 
   handleSubmit(){
     //console.log(this.props)

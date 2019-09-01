@@ -24,6 +24,21 @@ module.exports = function(router) {
         })
       }
     })
+  });
+
+  router.post('/readmsg', (req, res) => {
+    const userId = req.cookies.userid;
+    const { targetId }  = req.body;
+    Chat.update({from: targetId, to: userId}, 
+      {'multi': true},
+      {'$set': {read: true}}, 
+      (err, doc) => {
+        console.log(doc)
+      if(!err) {
+        return res.json({code: 0});
+      }
+      return res.json({code:1, msg: 'failed to update'})
+    })
   })
 
   return router
