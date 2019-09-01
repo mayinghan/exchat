@@ -1,6 +1,8 @@
 const express = require('express')
 const mongoose = require('mongoose')
-const db = 'mongodb+srv://yinghan:yinghan@cluster0-lkidu.mongodb.net/test?retryWrites=true'
+const db = process.env.NODE_ENV === 'production' ? 
+    'mongodb+srv://yinghan:yinghan@cluster0-lkidu.mongodb.net/exchat?retryWrites=true' :
+    'mongodb+srv://yinghan:yinghan@cluster0-lkidu.mongodb.net/test?retryWrites=true';
 const app = express()
 const Router = express.Router()
 const bodyParser = require('body-parser')
