@@ -19,13 +19,13 @@ const initState = {
 export function chat(state=initState, action) {
   switch(action.type) {
     case LIST:
-      return {...state, users: action.payload.users, msg: action.payload.msg, unreadNum: action.payload.msg.filter(v=>!v.read && v.to===action.payload.userId).length};
+      return {...state, users: action.payload.users, msg: action.payload.msg, unreadNum: action.payload.msg.filter(v=>!v.isRead && v.to===action.payload.userId).length};
     case GET:
       const count = action.payload.msg.to === action.payload.userId ? 1 : 0;
       return {...state, msg: [...state.msg, action.payload.msg], unreadNum: state.unreadNum + count};
     case READ: 
       const {targetId, num} = action.payload
-      return {...state, msg:state.msg.map(v=>({...v,read:targetId==v.from?true:v.read})), unread:state.unread-num}
+      return {...state, msg:state.msg.map(v=>({...v,isRead:targetId==v.from?true:v.isRead})), unreadNum:state.unreadNum-num}
     default:
       return state;
   }

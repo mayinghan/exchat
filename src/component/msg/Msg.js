@@ -7,6 +7,10 @@ import { List, Badge } from 'antd-mobile';
   state => state
 )
 class Msg extends React.Component {
+  componentDidMount() {
+
+  }
+
   getLast(array) {
     return array[array.length - 1];
   }
@@ -37,12 +41,13 @@ class Msg extends React.Component {
           console.log(v);
           const lastItem = this.getLast(v);
           const targetId = v[0].from === userId ? v[0].to : v[0].from;
-          const targetInfo = this.props.chat.users[targetId];
-          if(!targetInfo) {
+          const targetInfo = userInfo[targetId];
+          if(!targetInfo){
+            console.log(userInfo)
+            console.log('no info')
             return null;
           }
-
-          const unreadNum = v.filter(v => !v.read && v.to === userId).length;
+          const unreadNum = v.filter(v => !v.isRead && v.to === userId).length;
           return (
             <List key={lastItem._id} >
               <Item 

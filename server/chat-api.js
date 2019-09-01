@@ -8,34 +8,43 @@ module.exports = function(router) {
     const userid = req.cookies.userid;
 
     let users = {};
-    User.find({}, (err, doc) => {
-      
-      doc.forEach(userInfo => {
-        users[userInfo._id] = {name: userInfo.user, avatar: userInfo.avatar};
-      })
+    const findUser = new Promise((resolve, rej) => {
+      User.find({}, (err, doc) => {
+        if(err) {
+          rej(err);
+        }
+        doc.forEach(userInfo => {
+          users[userInfo._id] = {name: userInfo.user, avatar: userInfo.avatar};
+        });
+        resolve(users);
+      });
     });
+    
 
-    Chat.find({'$or': [{from: userid}, {to: userid}]}, (err, doc) => {
-      if(!err) {
-        return res.json({
-          code: 0,
-          msg: doc,
-          users: users
-        })
+    findUser.then((users) => {
+      Chat.find({'$or': [{from: userid}, {to: userid}]}, (err, doc) => {
+        if(err) rej(err);
+        if(!err) {
+          return (res.json({
+            code: 0,
+            msg: doc,
+            users: users
+          }));
+        }
       }
-    })
+    )}).catch(console.err);
   });
 
   router.post('/readmsg', (req, res) => {
     const userId = req.cookies.userid;
     const { targetId }  = req.body;
     Chat.update({from: targetId, to: userId}, 
+      {'$set': {isRead: true}}, 
       {'multi': true},
-      {'$set': {read: true}}, 
       (err, doc) => {
         console.log(doc)
       if(!err) {
-        return res.json({code: 0});
+        return res.json({code: 0, nums: doc.nModified});
       }
       return res.json({code:1, msg: 'failed to update'})
     })
