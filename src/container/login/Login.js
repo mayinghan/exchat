@@ -41,9 +41,10 @@ class Login extends React.Component{
       <div>
         {this.props.redirectTo? <Redirect to={this.props.redirectTo}></Redirect> : null}
         <Logo></Logo>
-        <h2>Login</h2>
+        
         {this.props.msg?<p className='errmsg'>{this.props.msg}</p> : null}
         <WingBlank>
+          <h2>Login</h2>
           <List>
             <InputItem onChange={(v) => this.handleChange('user', v)} placeholder="Username"></InputItem>
             <WhiteSpace />

@@ -46,9 +46,10 @@ class Register extends Component{
       <div>
         {this.props.redirectTo? <Redirect to={this.props.redirectTo}></Redirect> : null}
         <Logo></Logo>
-        <h2>Register</h2>
+        
         {this.props.msg?<p className='errmsg'>{this.props.msg}</p> : null}
         <WingBlank>
+          <h2>Register</h2>
           <List>
             <InputItem 
               onChange={(v) => this.handleChange('user', v)}

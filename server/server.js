@@ -11,6 +11,7 @@ const Chat = require('../server/model/user/chat.model')
 //work with express
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
+const PATH = require('path')
 
 io.on('connection', (socket) => {
   //console.log('user loged in');
@@ -41,6 +42,15 @@ app.use(bodyParser.json())
 app.use('/user', userRouter)
   .use('/chat', chatRouter)
 
+
+app.use('/', express.static(PATH.resolve('build')));
+app.use((req, res, next) => {
+  if(req.url.startsWith('/user/') || req.url.startsWith('/static/')) {
+    return next();
+  }
+
+  return res.sendFile(PATH.resolve('build/index.html'))
+})
 //bound with io server+express instead of express app itself
 server.listen(port, function() {
   console.log('Node app starts at port ', port)
