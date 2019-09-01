@@ -12,29 +12,42 @@ class Chat extends React.Component {
   constructor(props) {
     super(props)
     this.state = {text: '', msg: []};
+    this.lastElement = React.createRef();
     //this.socket = null;
   }
 
-  componentWillMount() {
-    console.log('chat component gonna render')
+  //always scroll to the bottom
+  scrollToBottom() {
+    this.lastElement.current.scrollIntoView({ behavior: "auto" });
   }
 
   componentDidMount() {
-    console.log(this.props)
-    
-    if(!this.props.chat.msg.length) {
+    //this.scrollToBottom();
+    if(this.lastElement.current) {
+      this.scrollToBottom();
+    }
+
+    if(this.props.chat.msg.length === 0) {
+      console.log('updating list')
       this.props.getMsgList();
       this.props.getMsg();
     } else {
       console.log('already updated list!');
     }
-    
-	}
+  }
+  
+  componentDidUpdate() {
+
+    if(this.lastElement.current) {
+      this.scrollToBottom();
+    }
+  }
 
   componentWillUnmount() {
     //mark the target user's msg as read
     const targetId = this.props.match.params.user;
     this.props.readMsg(targetId);
+    console.log('chat is ummounting')
   }
 
   handleSubmit(){
@@ -57,6 +70,11 @@ class Chat extends React.Component {
     }
     const chatId = getChatId(userid, this.props.user._id);
     const chatMsg = this.props.chat.msg.filter(v=>v.chatId === chatId);
+    let hash = {};
+    // const chatMsg = chatMsgRaw.reduce((item, next) => {
+      
+    //   return item;
+    // }, []);
     return (
       <div id='chat-page'>
         <NavBar 
@@ -85,8 +103,8 @@ class Chat extends React.Component {
             )
           })}
         </div>
-        
-        <div className='stick-footer'>
+        <div ref={this.lastElement}></div>
+        <div className='stick-footer' >
           <List>
             <InputItem
               placeholder='message'
@@ -98,7 +116,7 @@ class Chat extends React.Component {
             >
             </InputItem>
           </List>
-        </div>
+        </div> 
       </div>
     )
   }

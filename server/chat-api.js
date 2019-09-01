@@ -42,7 +42,6 @@ module.exports = function(router) {
       {'$set': {isRead: true}}, 
       {'multi': true},
       (err, doc) => {
-        console.log(doc)
       if(!err) {
         return res.json({code: 0, nums: doc.nModified});
       }

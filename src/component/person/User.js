@@ -1,12 +1,10 @@
 import React from 'react'
-import axios from 'axios'
 import { connect } from 'react-redux'
 import { getList } from '../../redux/userList.redux'
-import { WingBlank, Card } from 'antd-mobile';
 import InfoCard from './InfoCard'
 
 @connect(
-  state => state.list,
+  state => state,
   {getList}
 )
 class User extends React.Component {
@@ -33,6 +31,10 @@ class User extends React.Component {
     this._isMounted = false;
   }
 
+  Forbidden() {
+    return <h2>Forbidden 403</h2>
+  }
+
   render() {
   //   const Header = Card.Header;
   //   const Body = Card.Body;
@@ -56,7 +58,12 @@ class User extends React.Component {
   //     </WingBlank>
   //   )
   // }
-    return <InfoCard userList={this.props.userList}></InfoCard>
+    return (
+    
+    <div>
+        {this.props.user.type==='expert' ? <InfoCard userList={this.props.list.userList}></InfoCard> : this.Forbidden()}
+      </div>
+    )
   }
 }
 

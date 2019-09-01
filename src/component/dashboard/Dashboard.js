@@ -2,30 +2,31 @@ import React from 'react'
 import { Fragment } from 'react'
 import { connect } from 'react-redux'
 import { NavBar } from 'antd-mobile'
-import { Switch, Route } from 'react-router-dom'
+import { Switch, Route, Redirect } from 'react-router-dom'
 import Expert from '../../component/person/Expert.js'
 import User from '../../component/person/User.js'
 import UserCenter from '../../component/person/UserCenter.js'
 import { getMsgList, sendMsg, getMsg } from '../../redux/chat.redux'
 import Msg from '../msg/Msg.js'
+
 //import Person from '../../component/person/Person.js'
 import NavLink from './NavLink';
 /**
  * To-do: build the Expert, User, Msg, Person component 
  */
 
-function Person() {
-	return <h2>Me</h2>
-}
 @connect(
 	state => state,
 	{getMsgList, sendMsg, getMsg}
 )
-class Dashboard extends React.Component {
+class Dashboard extends React.PureComponent {
 	componentDidMount() {
 		if(!this.props.chat.msg.length) {
+			console.log('udpating chat list from dashboard');
 			this.props.getMsgList();
     	this.props.getMsg();
+		} else {
+			console.log('already updated list dashboard')
 		}
 	}
 	render() {

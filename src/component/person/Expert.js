@@ -6,7 +6,7 @@ import { WingBlank, Card, WhiteSpace } from 'antd-mobile';
 import InfoCard from './InfoCard';
 
 @connect(
-  state => state.list,
+  state => state,
   {getList}
 )
 class Expert extends React.Component {
@@ -36,8 +36,17 @@ class Expert extends React.Component {
     this._isMounted = false;
   }
 
+  Forbidden() {
+    return <h2>Forbidden 403</h2>
+  }
+
   render() {
-    return <InfoCard userList={this.props.userList}></InfoCard> 
+    return (
+      <div>
+        {this.props.user.type==='user' ? <InfoCard userList={this.props.list.userList}></InfoCard> : this.Forbidden()}
+      </div>
+      
+    )
   }
 }
 

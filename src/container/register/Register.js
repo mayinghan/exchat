@@ -16,7 +16,8 @@ class Register extends Component{
       user: '',
       pwd: '',
       repeatpwd: '',
-      type: 'expert'
+      type: 'user',
+      code: ''
     }
 
     this.login = this.login.bind(this)
@@ -36,12 +37,18 @@ class Register extends Component{
   }
 
   handleRegister() {
-    console.log(this.state)
     this.props.register(this.state)
   }
 
   render() {
-    const RadioItem = Radio.RadioItem
+    const RadioItem = Radio.RadioItem;
+    let inputCode;
+
+    if(this.state.type === 'expert') {
+      inputCode = <InputItem type='password' onChange={(v) => this.handleChange('code', v)} placeholder='Verification code; ask the admin for code'></InputItem>
+    } else {
+
+    }
     return(
       <div>
         {this.props.redirectTo? <Redirect to={this.props.redirectTo}></Redirect> : null}
@@ -63,6 +70,7 @@ class Register extends Component{
             <WhiteSpace />
             <RadioItem key={1} checked={this.state.type==='expert'} onChange={()=>this.handleChange('type','expert')}>I am an expert!</RadioItem>
             <RadioItem key={2} checked={this.state.type==='user'} onChange={()=>this.handleChange('type', 'user')}>I want to consult!</RadioItem>
+            {inputCode}
           </List>
           <WhiteSpace />
           <WhiteSpace />

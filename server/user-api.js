@@ -10,7 +10,16 @@ module.exports = function(router) {
     let user = new User()
     user.user = req.body.user
     user.type = req.body.type
-    console.log(req.body)
+    console.log(req.body);
+    if(user.type === 'expert') {
+      if(req.body.code !== 'FarGo2019!') {
+        console.log('wrong code ', req.body.code)
+        return res.json({
+          code: 1,
+          msg:'Wrong code! Pls contact the admin'
+        })
+      }
+    }
     //check if user exist
     User.findOne({user:user.user}, function(err, doc) {
       if(doc) {
@@ -18,7 +27,7 @@ module.exports = function(router) {
       } else {
         bcrypt.hash(req.body.pwd, null, null, function(err, hash) {
           if(err) return next(err)
-          user.pwd = hash
+          user.pwd = hash;
         })
         user.save(function(e, d) {
           if(e) {

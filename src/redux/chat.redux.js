@@ -1,6 +1,6 @@
 import axios from 'axios';
 import io from 'socket.io-client';
-const socket = io('ws://localhost:5000');
+const socket = process.env.NODE_ENV === 'production' ? io('ws://fargo-chat.herokuapp.com:5000'): io('ws://localhost:5000');
 
 //get msg list
 const LIST = 'LIST';
@@ -44,6 +44,7 @@ function msgread({userId, targetId, num}) {
 }
 
 export function getMsgList() {
+  
   return (dispatch, getState) => {
     axios.get('/user/getMsgList')
       .then(res => {
@@ -58,7 +59,10 @@ export function getMsgList() {
 
 export function getMsg() {
   return (dispatch, getState) => {
+    socket.removeAllListeners();
     socket.on('getMsg', data => {
+      console.log('been called getMsg')
+      console.log('gettting msg in redux!')
       const userId = getState().user._id;
       dispatch(msgGet(data, userId))
     })
@@ -67,6 +71,7 @@ export function getMsg() {
 
 export function sendMsg({from, to, msg}) {
   return dispatch => {
+    console.log('sending msg through redux')
     socket.emit('sendMsg', {from, to, msg});
   }
 }

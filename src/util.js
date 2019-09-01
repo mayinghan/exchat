@@ -6,10 +6,10 @@ export function getRedirectPath({type, avatar}){
   
   var url = (type==='expert')?'/user': '/expert'
   if(type === 'expert' && !avatar) {
-    url += 'info'
+    url = '/expertinfo'
   }
   if(type === 'user' && !avatar) {
-    url += 'info'
+    url = '/userinfo'
   }
 	return url
 }

@@ -14,8 +14,6 @@ const initState={
 export function user(state=initState, action){
 	switch(action.type){
 		case AUTH_SUCCESS:{
-			console.log('AUTH_SUCESS');
-			console.log(action.payload);
 			return {...state, msg:'',redirectTo:getRedirectPath(action.payload),...action.payload}
 		}
 		case LOAD_DATA:
@@ -33,7 +31,6 @@ export function user(state=initState, action){
 function authSuccess(obj) {
 	//mask the password to the redux data flow
 	const {pwd, ...data} = obj;
-	console.log(data);
 	return { type: AUTH_SUCCESS, payload: data }
 }
 
@@ -65,19 +62,22 @@ export function login({user,pwd}){
 	}
 }
 
-export function register({user,pwd,repeatpwd,type}){
+export function register({user,pwd,repeatpwd,type,code}){
 	if (!user||!pwd||!type||!repeatpwd) {
 		console.log(user, pwd, repeatpwd, type)
 		return errorMsg('You are missing some fields!')
+	}
+	if(type==='expert') {
+		if(!code) return errorMsg('You need Expert verification code! Pls contact the admin')
 	}
 	if (pwd!==repeatpwd) {
 		return errorMsg('Two passwords are not the same!')
 	}
 	return dispatch=>{
-		axios.post('/user/register',{user,pwd,type})
+		axios.post('/user/register',{user,pwd,type, code})
 			.then(res=>{
 				if (res.status===200&&res.data.code===0) {
-					dispatch(authSuccess({user,pwd,type}))
+					dispatch(authSuccess({user,pwd,type, code}))
 				}else{
 					dispatch(errorMsg(res.data.msg))
 				}

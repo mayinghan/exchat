@@ -22,7 +22,7 @@ io.on('connection', (socket) => {
     const chatId = [from, to].sort().join('|');
 
     Chat.create({chatId, from, to, content: msg}, (err, doc) => {
-      console.log(doc);
+      console.log('emitting getMsg from server side');
       io.emit('getMsg', doc);
     })
     //io.emit('getMsg', data);
@@ -44,15 +44,17 @@ app.use(bodyParser.json())
 app.use('/user', userRouter)
   .use('/chat', chatRouter)
 
+if(process.env.NODE_ENV === 'production') {
+  app.use('/', express.static(PATH.resolve('build')));
+  app.use((req, res, next) => {
+    if(req.url.startsWith('/user/') || req.url.startsWith('/static/')) {
+      return next();
+    }
 
-app.use('/', express.static(PATH.resolve('build')));
-app.use((req, res, next) => {
-  if(req.url.startsWith('/user/') || req.url.startsWith('/static/')) {
-    return next();
-  }
-
-  return res.sendFile(PATH.resolve('build/index.html'))
+    return res.sendFile(PATH.resolve('build/index.html'))
 })
+}
+
 //bound with io server+express instead of express app itself
 server.listen(port, function() {
   console.log('Node app starts at port ', port)
